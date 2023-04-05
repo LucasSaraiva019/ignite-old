@@ -1,0 +1,22 @@
+{
+  "uid": {
+    "__TYPE__": "UIDContent",
+    "value": "dear"
+  },
+  "title": {
+    "__TYPE__": "FieldContent",
+    "value": "silent",
+    "type": "Text"
+  },
+  "content": {
+    "__TYPE__": "StructuredTextContent",
+    "value": [
+      {
+        "type": "paragraph",
+        "content": {
+          "text": "Sint irure proident minim enim incididunt reprehenderit cupidatat duis."
+        }
+      }
+    ]
+  }
+}
