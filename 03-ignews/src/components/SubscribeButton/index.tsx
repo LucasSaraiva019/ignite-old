@@ -1,36 +1,34 @@
-import { useSession, signIn } from 'next-auth/react'
-import styles from './styles.module.scss'
-import { api } from '../../services/api'
-import { getStripeJs } from '../../services/stripe-js'
+import { signIn, useSession } from "next-auth/client";
+import { useRouter } from "next/router";
+import { api } from "../../services/api";
+import { getStripeJs } from "../../services/stripe-js";
+import styles from "./styles.module.scss";
 
-interface SubscribeButtonProps {
-  priceId: string
-}
-
-// Pode utilizar secrets do stripe por exemplo
-// getServerSideProps (SSR)
-// getStaticProps (SSG)
-// API Routes
-
-export function SubscribeButton({ priceId }: SubscribeButtonProps) {
-  const { data: session } = useSession()
+export function SubscribeButton() {
+  const [session] = useSession();
+  const router = useRouter();
 
   async function handleSubscribe() {
     if (!session) {
-      signIn('github')
-      return
+      signIn("github");
+      return;
     }
+
+    if (session.activeSubscription) {
+      router.push("/posts");
+      return;
+    }
+
     try {
-      const response = await api.post('/subscribe')
-      const { sessionId } = response.data
-
-      const stripe = await getStripeJs()
-
-      await stripe?.redirectToCheckout({ sessionId })
+      const response = await api.post("/subscribe");
+      const { sessionId } = response.data;
+      const stripe = await getStripeJs();
+      await stripe.redirectToCheckout({ sessionId });
     } catch (err) {
-      alert(err.message)
+      alert(err.message);
     }
   }
+
   return (
     <button
       type="button"
@@ -39,5 +37,5 @@ export function SubscribeButton({ priceId }: SubscribeButtonProps) {
     >
       Subscribe Now
     </button>
-  )
+  );
 }

@@ -12,14 +12,14 @@
 .hero {
   max-width: 600px;
 
-  // pega somente o span do primeiro nivel
-  >span {
+  > span {
     font-size: 1.5rem;
     font-weight: bold;
   }
 
   h1 {
     font-size: 4.5rem;
+    line-height: 4.5rem;
     font-weight: 900;
     margin-top: 2.5rem;
 
@@ -35,11 +35,12 @@
 
     span {
       color: var(--cyan-500);
-      font-weight: bold
+      font-weight: bold;
     }
   }
 
   button {
     margin-top: 2.5rem;
   }
+
 }
